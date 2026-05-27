@@ -1,0 +1,150 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --g900:#0a3b0a;--g800:#1a5c1a;--g600:#2d8a2d;--g400:#4caf4c;--g200:#a8d5a8;--g100:#d4edd4;--g50:#eef7ee;
+  }
+  body{background:var(--g50);font-family:'DM Sans',sans-serif;color:var(--g900)}
+  header{background:var(--g800);padding:0 2rem;display:flex;align-items:center;height:64px}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logo-star{width:36px;height:36px;background:var(--g400);border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .logo-star svg{width:20px;height:20px;fill:#fff}
+  .brand{font-family:'Literata',serif;font-size:18px;font-weight:600;color:#fff;letter-spacing:0.5px}
+  .brand span{color:var(--g200);font-size:13px;font-weight:400;display:block;letter-spacing:0}
+  .hero{background:var(--g800);padding:2rem 2rem 2.5rem;text-align:center;border-bottom:4px solid var(--g400)}
+  .hero h1{font-family:'Literata',serif;font-size:28px;font-weight:600;color:#fff;margin-bottom:6px}
+  .hero p{color:var(--g200);font-size:15px}
+  .stats-bar{background:var(--g100);border-bottom:1px solid var(--g200);padding:10px 2rem;display:flex;gap:2rem;align-items:center}
+  .stat{font-size:13px;color:var(--g800)}
+  .stat strong{color:var(--g600);font-weight:600}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--g400);display:inline-block;margin-right:6px}
+  .table-wrap{padding:1.5rem 2rem}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--g200);font-size:14px}
+  thead tr{background:var(--g600)}
+  thead th{color:#fff;font-weight:500;padding:13px 16px;text-align:left;font-size:13px;letter-spacing:0.3px}
+  tbody tr{border-bottom:1px solid var(--g100);transition:background 0.15s}
+  tbody tr:last-child{border-bottom:none}
+  tbody tr:hover{background:var(--g50)}
+  tbody td{padding:13px 16px;vertical-align:middle}
+  .job-title{font-weight:500;color:var(--g800);font-size:14px}
+  .job-title small{display:block;font-weight:400;color:#666;font-size:12px;margin-top:2px}
+  .loc{color:#555;font-size:13px;display:flex;align-items:center;gap:5px}
+  .loc i{color:var(--g400);font-size:15px}
+  .salary{font-weight:500;color:var(--g800);font-size:14px}
+  .salary small{display:block;font-size:11px;color:#888;font-weight:400}
+  .event-date{color:#555;font-size:13px;display:flex;align-items:center;gap:5px}
+  .event-date i{color:var(--g400);font-size:15px}
+  .new-tag{background:var(--g400);color:#fff;font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
+  .wa-btn{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;border:none;padding:7px 14px;border-radius:5px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;text-decoration:none}
+  .wa-btn:hover{background:#1ebe5d}
+  .wa-btn svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+  .pagination{display:flex;align-items:center;justify-content:center;gap:8px;padding:1rem 2rem 2rem}
+  .pg-btn{background:#fff;border:1px solid var(--g200);color:var(--g800);width:36px;height:36px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center}
+  .pg-btn.active{background:var(--g600);color:#fff;border-color:var(--g600)}
+  .pg-btn:hover:not(.active){background:var(--g50)}
+  footer{background:var(--g800);color:var(--g200);padding:2.5rem 2rem 0}
+  .footer-top{display:grid;grid-template-columns:1.5fr 1fr;gap:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,0.12)}
+  .footer-brand{display:flex;align-items:flex-start;gap:12px}
+  .footer-logo{width:40px;height:40px;background:var(--g400);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .footer-logo svg{width:22px;height:22px;fill:#fff}
+  .footer-name{font-family:'Literata',serif;font-size:20px;font-weight:600;color:#fff}
+  .footer-tagline{font-size:13px;color:var(--g200);margin-top:4px;line-height:1.5}
+  .footer-contact h3{font-size:13px;font-weight:500;color:#fff;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:14px}
+  .contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:14px;color:var(--g200);line-height:1.4}
+  .contact-item i{color:var(--g400);font-size:16px;margin-top:1px;flex-shrink:0}
+  .footer-bottom{padding:1rem 0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--g200);opacity:0.75}
+</style>
+
+<header>
+  <div class="logo">
+    <div class="logo-star">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+    </div>
+    <div class="brand">TempWork <span>Temporary Staffing Portal</span></div>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Find Temporary Staff Fast</h1>
+  <p>Browse open roles across all industries — updated daily</p>
+</div>
+
+<div class="stats-bar">
+  <span class="stat"><span class="dot"></span><strong>12</strong> open positions</span>
+  <span class="stat"><span class="dot"></span>Updated today</span>
+  <span class="stat"><span class="dot"></span>Immediate starts available</span>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Job Title</th>
+        <th>Location</th>
+        <th>Salary</th>
+        <th>Event Date</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody id="jobBody"></tbody>
+  </table>
+</div>
+
+<div class="pagination">
+  <button class="pg-btn active">1</button>
+  <button class="pg-btn">2</button>
+  <button class="pg-btn">3</button>
+  <button class="pg-btn">›</button>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <div>
+        <div class="footer-name">TempWork</div>
+        <div class="footer-tagline">Sri Lanka's trusted platform for<br>temporary staffing solutions.</div>
+      </div>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact Us</h3>
+      <div class="contact-item"><i class="ti ti-phone" aria-hidden="true"></i><span>+94 11 234 5678</span></div>
+      <div class="contact-item"><i class="ti ti-mail" aria-hidden="true"></i><span>info@tempwork.lk</span></div>
+      <div class="contact-item"><i class="ti ti-map-pin" aria-hidden="true"></i><span>No. 45, Galle Road,<br>Colombo 03, Sri Lanka</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 TempWork. All rights reserved.</div>
+</footer>
+
+<script>
+const waIcon=`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+
+const jobs = [
+  {title:"Warehouse Packer",dept:"Logistics",loc:"Colombo",salary:"LKR 38,000",period:"/ month",date:"02 Jun 2025",isNew:true,wa:"94701000001"},
+  {title:"Event Catering Staff",dept:"Hospitality",loc:"Colombo",salary:"LKR 1,200",period:"/ day",date:"05 Jun 2025",isNew:true,wa:"94701000002"},
+  {title:"Data Entry Clerk",dept:"Admin",loc:"Kandy",salary:"LKR 42,000",period:"/ month",date:"07 Jun 2025",isNew:true,wa:"94701000003"},
+  {title:"Retail Sales Assistant",dept:"Retail",loc:"Galle",salary:"LKR 35,000",period:"/ month",date:"10 Jun 2025",isNew:false,wa:"94701000004"},
+  {title:"Security Guard",dept:"Security",loc:"Negombo",salary:"LKR 40,000",period:"/ month",date:"10 Jun 2025",isNew:false,wa:"94701000005"},
+  {title:"Office Cleaner",dept:"Facilities",loc:"Colombo",salary:"LKR 900",period:"/ day",date:"12 Jun 2025",isNew:false,wa:"94701000006"},
+  {title:"Delivery Driver",dept:"Logistics",loc:"Kurunegala",salary:"LKR 45,000",period:"/ month",date:"14 Jun 2025",isNew:false,wa:"94701000007"},
+  {title:"Call Centre Agent",dept:"Customer Service",loc:"Colombo",salary:"LKR 55,000",period:"/ month",date:"15 Jun 2025",isNew:false,wa:"94701000008"},
+  {title:"Kitchen Helper",dept:"Hospitality",loc:"Kandy",salary:"LKR 800",period:"/ day",date:"16 Jun 2025",isNew:false,wa:"94701000009"},
+  {title:"Promoter / Brand Ambassador",dept:"Marketing",loc:"Colombo",salary:"LKR 1,500",period:"/ day",date:"18 Jun 2025",isNew:false,wa:"94701000010"},
+  {title:"Factory Worker",dept:"Manufacturing",loc:"Galle",salary:"LKR 36,000",period:"/ month",date:"20 Jun 2025",isNew:false,wa:"94701000011"},
+  {title:"IT Support Technician",dept:"IT",loc:"Colombo",salary:"LKR 75,000",period:"/ month",date:"22 Jun 2025",isNew:false,wa:"94701000012"},
+];
+
+const body=document.getElementById('jobBody');
+body.innerHTML=jobs.map(j=>`
+  <tr>
+    <td><div class="job-title">${j.title}${j.isNew?'<span class="new-tag">NEW</span>':''}<small>${j.dept}</small></div></td>
+    <td><div class="loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${j.loc}</div></td>
+    <td><div class="salary">${j.salary}<small>${j.period}</small></div></td>
+    <td><div class="event-date"><i class="ti ti-calendar" aria-hidden="true"></i>${j.date}</div></td>
+    <td><a class="wa-btn" href="https://wa.me/${j.wa}?text=Hi%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(j.title)}%20position." target="_blank">${waIcon} WhatsApp</a></td>
+  </tr>
+`).join('');
+</script>
