@@ -163,12 +163,29 @@ function renderTable(page) {
     const loc   = j['Location'] || '';
     const sal   = j['Salary'] || '';
     const date  = j['Event Date'] || '';
+    const desc  = j['Description'] || '';
     const wa    = j['Contact'] || '';
     const newTag = isNewJob(date) ? '<span class="new-tag">NEW</span>' : '';
-    const waHref = wa ? `https://wa.me/${wa.replace(/\D/g,'')}?text=Hi%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(title)}%20position.` : '#';
+
+    // Build a rich WhatsApp message with full job details
+    const msgLines = [
+      `Hi, I am interested in the following job:`,
+      ``,
+      `*${title}*`,
+      loc    ? `📍 Location: ${loc}`    : '',
+      sal    ? `💰 Salary: ${sal}`      : '',
+      date   ? `📅 Date: ${date}`       : '',
+      desc   ? `\n📝 ${desc}`           : '',
+      ``,
+      `Please send me more details. Thank you!`
+    ].filter(l => l !== null);
+
+    const waMsg = encodeURIComponent(msgLines.join('\n'));
+    const waHref = wa ? `https://wa.me/${wa.replace(/\D/g,'')}?text=${waMsg}` : '#';
+
     return `
       <tr>
-        <td><div class="job-title">${title}${newTag}</div></td>
+        <td><div class="job-title">${title}${newTag}${desc ? `<small style="color:#555;font-size:12px;margin-top:3px;display:block">${desc}</small>` : ''}</div></td>
         <td><div class="loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${loc}</div></td>
         <td><div class="salary">${sal}</div></td>
         <td><div class="event-date"><i class="ti ti-calendar" aria-hidden="true"></i>${date}</div></td>
