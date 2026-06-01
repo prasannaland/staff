@@ -1,4 +1,3 @@
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
@@ -120,31 +119,104 @@
 </footer>
 
 <script>
+const SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoSYsYYHGPPWxUrE_dPNDy35X0KjztPTcNEkSWq7mfMhQDVEBTGwaJ9fOvvf9pRGv9svjeK86dmtNx/pub?output=csv";
+const ROWS_PER_PAGE = 10;
+
 const waIcon=`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
 
-const jobs = [
-  {title:"Warehouse Packer",dept:"Logistics",loc:"Colombo",salary:"LKR 38,000",period:"/ month",date:"02 Jun 2025",isNew:true,wa:"94701000001"},
-  {title:"Event Catering Staff",dept:"Hospitality",loc:"Colombo",salary:"LKR 1,200",period:"/ day",date:"05 Jun 2025",isNew:true,wa:"94701000002"},
-  {title:"Data Entry Clerk",dept:"Admin",loc:"Kandy",salary:"LKR 42,000",period:"/ month",date:"07 Jun 2025",isNew:true,wa:"94701000003"},
-  {title:"Retail Sales Assistant",dept:"Retail",loc:"Galle",salary:"LKR 35,000",period:"/ month",date:"10 Jun 2025",isNew:false,wa:"94701000004"},
-  {title:"Security Guard",dept:"Security",loc:"Negombo",salary:"LKR 40,000",period:"/ month",date:"10 Jun 2025",isNew:false,wa:"94701000005"},
-  {title:"Office Cleaner",dept:"Facilities",loc:"Colombo",salary:"LKR 900",period:"/ day",date:"12 Jun 2025",isNew:false,wa:"94701000006"},
-  {title:"Delivery Driver",dept:"Logistics",loc:"Kurunegala",salary:"LKR 45,000",period:"/ month",date:"14 Jun 2025",isNew:false,wa:"94701000007"},
-  {title:"Call Centre Agent",dept:"Customer Service",loc:"Colombo",salary:"LKR 55,000",period:"/ month",date:"15 Jun 2025",isNew:false,wa:"94701000008"},
-  {title:"Kitchen Helper",dept:"Hospitality",loc:"Kandy",salary:"LKR 800",period:"/ day",date:"16 Jun 2025",isNew:false,wa:"94701000009"},
-  {title:"Promoter / Brand Ambassador",dept:"Marketing",loc:"Colombo",salary:"LKR 1,500",period:"/ day",date:"18 Jun 2025",isNew:false,wa:"94701000010"},
-  {title:"Factory Worker",dept:"Manufacturing",loc:"Galle",salary:"LKR 36,000",period:"/ month",date:"20 Jun 2025",isNew:false,wa:"94701000011"},
-  {title:"IT Support Technician",dept:"IT",loc:"Colombo",salary:"LKR 75,000",period:"/ month",date:"22 Jun 2025",isNew:false,wa:"94701000012"},
-];
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).map(line => {
+    // Handle commas inside quoted fields
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      if (line[i] === '"') { inQ = !inQ; }
+      else if (line[i] === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else { cur += line[i]; }
+    }
+    cols.push(cur.trim());
+    const row = {};
+    headers.forEach((h, i) => row[h] = (cols[i] || '').replace(/^"|"$/g, ''));
+    return row;
+  }).filter(r => r['Job Title'] && r['Job Title'].trim() !== '');
+}
 
-const body=document.getElementById('jobBody');
-body.innerHTML=jobs.map(j=>`
-  <tr>
-    <td><div class="job-title">${j.title}${j.isNew?'<span class="new-tag">NEW</span>':''}<small>${j.dept}</small></div></td>
-    <td><div class="loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${j.loc}</div></td>
-    <td><div class="salary">${j.salary}<small>${j.period}</small></div></td>
-    <td><div class="event-date"><i class="ti ti-calendar" aria-hidden="true"></i>${j.date}</div></td>
-    <td><a class="wa-btn" href="https://wa.me/${j.wa}?text=Hi%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(j.title)}%20position." target="_blank">${waIcon} WhatsApp</a></td>
-  </tr>
-`).join('');
+function isNewJob(dateStr) {
+  if (!dateStr) return false;
+  const d = new Date(dateStr);
+  const diff = (Date.now() - d) / (1000 * 60 * 60 * 24);
+  return !isNaN(diff) && diff <= 7;
+}
+
+let allJobs = [];
+let currentPage = 1;
+
+function renderTable(page) {
+  const body = document.getElementById('jobBody');
+  const start = (page - 1) * ROWS_PER_PAGE;
+  const pageJobs = allJobs.slice(start, start + ROWS_PER_PAGE);
+
+  body.innerHTML = pageJobs.map(j => {
+    const title = j['Job Title'] || '';
+    const loc   = j['Location'] || '';
+    const sal   = j['Salary'] || '';
+    const date  = j['Event Date'] || '';
+    const wa    = j['Contact'] || '';
+    const newTag = isNewJob(date) ? '<span class="new-tag">NEW</span>' : '';
+    const waHref = wa ? `https://wa.me/${wa.replace(/\D/g,'')}?text=Hi%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(title)}%20position.` : '#';
+    return `
+      <tr>
+        <td><div class="job-title">${title}${newTag}</div></td>
+        <td><div class="loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${loc}</div></td>
+        <td><div class="salary">${sal}</div></td>
+        <td><div class="event-date"><i class="ti ti-calendar" aria-hidden="true"></i>${date}</div></td>
+        <td>${wa ? `<a class="wa-btn" href="${waHref}" target="_blank">${waIcon} WhatsApp</a>` : '<span style="color:#aaa;font-size:13px">—</span>'}</td>
+      </tr>`;
+  }).join('');
+}
+
+function renderPagination() {
+  const total = Math.ceil(allJobs.length / ROWS_PER_PAGE);
+  const pg = document.querySelector('.pagination');
+  let html = '';
+  for (let i = 1; i <= total; i++) {
+    html += `<button class="pg-btn${i === currentPage ? ' active' : ''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  if (currentPage < total) html += `<button class="pg-btn" onclick="goPage(${currentPage + 1})">›</button>`;
+  pg.innerHTML = html;
+}
+
+function goPage(n) {
+  currentPage = n;
+  renderTable(n);
+  renderPagination();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function updateStats(count) {
+  const bar = document.querySelector('.stats-bar');
+  bar.innerHTML = `
+    <span class="stat"><span class="dot"></span><strong>${count}</strong> open positions</span>
+    <span class="stat"><span class="dot"></span>Updated today</span>
+    <span class="stat"><span class="dot"></span>Immediate starts available</span>`;
+}
+
+// Show loading state
+document.getElementById('jobBody').innerHTML =
+  `<tr><td colspan="5" style="text-align:center;padding:2rem;color:#888;font-size:14px">Loading jobs…</td></tr>`;
+
+fetch(SHEET_CSV)
+  .then(r => r.text())
+  .then(csv => {
+    allJobs = parseCSV(csv);
+    updateStats(allJobs.length);
+    renderTable(1);
+    renderPagination();
+  })
+  .catch(() => {
+    document.getElementById('jobBody').innerHTML =
+      `<tr><td colspan="5" style="text-align:center;padding:2rem;color:#c00;font-size:14px">Could not load jobs. Please try again later.</td></tr>`;
+  });
 </script>
