@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
@@ -5,20 +6,20 @@
     --g900:#0a3b0a;--g800:#1a5c1a;--g600:#2d8a2d;--g400:#4caf4c;--g200:#a8d5a8;--g100:#d4edd4;--g50:#eef7ee;
   }
   body{background:var(--g50);font-family:'DM Sans',sans-serif;color:var(--g900)}
-  header{background:var(--g800);padding:0 2rem;display:flex;align-items:center;height:64px}
+  header{background:var(--g800);padding:0 1rem;display:flex;align-items:center;height:64px}
   .logo{display:flex;align-items:center;gap:10px}
-  .logo-star{width:36px;height:36px;background:var(--g400);border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .logo-star{width:36px;height:36px;background:var(--g400);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .logo-star svg{width:20px;height:20px;fill:#fff}
   .brand{font-family:'Literata',serif;font-size:18px;font-weight:600;color:#fff;letter-spacing:0.5px}
   .brand span{color:var(--g200);font-size:13px;font-weight:400;display:block;letter-spacing:0}
-  .hero{background:var(--g800);padding:2rem 2rem 2.5rem;text-align:center;border-bottom:4px solid var(--g400)}
-  .hero h1{font-family:'Literata',serif;font-size:28px;font-weight:600;color:#fff;margin-bottom:6px}
-  .hero p{color:var(--g200);font-size:15px}
-  .stats-bar{background:var(--g100);border-bottom:1px solid var(--g200);padding:10px 2rem;display:flex;gap:2rem;align-items:center}
+  .hero{background:var(--g800);padding:1.5rem 1rem 2rem;text-align:center;border-bottom:4px solid var(--g400)}
+  .hero h1{font-family:'Literata',serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:6px}
+  .hero p{color:var(--g200);font-size:14px}
+  .stats-bar{background:var(--g100);border-bottom:1px solid var(--g200);padding:10px 1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
   .stat{font-size:13px;color:var(--g800)}
   .stat strong{color:var(--g600);font-weight:600}
   .dot{width:6px;height:6px;border-radius:50%;background:var(--g400);display:inline-block;margin-right:6px}
-  .table-wrap{padding:1.5rem 2rem}
+  .table-wrap{padding:1.5rem}
   table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--g200);font-size:14px}
   thead tr{background:var(--g600)}
   thead th{color:#fff;font-weight:500;padding:13px 16px;text-align:left;font-size:13px;letter-spacing:0.3px}
@@ -38,11 +39,11 @@
   .wa-btn{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;border:none;padding:7px 14px;border-radius:5px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;text-decoration:none}
   .wa-btn:hover{background:#1ebe5d}
   .wa-btn svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
-  .pagination{display:flex;align-items:center;justify-content:center;gap:8px;padding:1rem 2rem 2rem}
+  .pagination{display:flex;align-items:center;justify-content:center;gap:8px;padding:1rem 1rem 2rem;flex-wrap:wrap}
   .pg-btn{background:#fff;border:1px solid var(--g200);color:var(--g800);width:36px;height:36px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center}
   .pg-btn.active{background:var(--g600);color:#fff;border-color:var(--g600)}
   .pg-btn:hover:not(.active){background:var(--g50)}
-  footer{background:var(--g800);color:var(--g200);padding:2.5rem 2rem 0}
+  footer{background:var(--g800);color:var(--g200);padding:2.5rem 1.5rem 0}
   .footer-top{display:grid;grid-template-columns:1.5fr 1fr;gap:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,0.12)}
   .footer-brand{display:flex;align-items:flex-start;gap:12px}
   .footer-logo{width:40px;height:40px;background:var(--g400);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
@@ -53,6 +54,35 @@
   .contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:14px;color:var(--g200);line-height:1.4}
   .contact-item i{color:var(--g400);font-size:16px;margin-top:1px;flex-shrink:0}
   .footer-bottom{padding:1rem 0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--g200);opacity:0.75}
+
+  /* ── Mobile: table becomes cards ── */
+  @media(max-width:640px){
+    .table-wrap{padding:0.75rem}
+    table,thead,tbody,tr,td,th{display:block}
+    thead{display:none}
+    tbody tr{
+      background:#fff;border-radius:14px;border:1px solid var(--g200);
+      margin-bottom:14px;padding:16px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.07);position:relative;
+    }
+    tbody tr:hover{background:#fff}
+    tbody td{padding:0;border:none;margin-bottom:10px}
+    tbody td:last-child{margin-bottom:0}
+    tbody td::before{
+      content:attr(data-label);display:block;
+      font-size:10px;font-weight:700;color:var(--g600);
+      text-transform:uppercase;letter-spacing:0.7px;margin-bottom:4px;
+    }
+    tbody td[data-label="Job Title"]::before{display:none}
+    tbody td[data-label="Job Title"] .job-title{font-size:16px;padding-right:60px}
+    .new-tag{position:absolute;top:14px;right:14px;margin-left:0;font-size:10px;padding:3px 8px}
+    .wa-btn{width:100%;justify-content:center;padding:13px;font-size:15px;border-radius:10px;margin-top:4px}
+    .hero h1{font-size:20px}
+    .stats-bar{gap:0.6rem}
+    .stat{font-size:12px}
+    .footer-top{grid-template-columns:1fr}
+    .footer-bottom{text-align:center;font-size:12px}
+  }
 </style>
 
 <header>
@@ -60,7 +90,7 @@
     <div class="logo-star">
       <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
     </div>
-    <div class="brand">DayJobs.lk <span>Temporary Staffing Portal</span></div>
+    <div class="brand">TempWork <span>Temporary Staffing Portal</span></div>
   </div>
 </header>
 
@@ -185,11 +215,11 @@ function renderTable(page) {
 
     return `
       <tr>
-        <td><div class="job-title">${title}${newTag}${desc ? `<small style="color:#555;font-size:12px;margin-top:3px;display:block">${desc}</small>` : ''}</div></td>
-        <td><div class="loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${loc}</div></td>
-        <td><div class="salary">${sal}</div></td>
-        <td><div class="event-date"><i class="ti ti-calendar" aria-hidden="true"></i>${date}</div></td>
-        <td>${wa ? `<a class="wa-btn" href="${waHref}" target="_blank">${waIcon} WhatsApp</a>` : '<span style="color:#aaa;font-size:13px">—</span>'}</td>
+        <td data-label="Job Title"><div class="job-title">${title}${newTag}${desc ? `<small style="color:#555;font-size:12px;margin-top:3px;display:block">${desc}</small>` : ''}</div></td>
+        <td data-label="Location"><div class="loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${loc}</div></td>
+        <td data-label="Salary"><div class="salary">${sal}</div></td>
+        <td data-label="Event Date"><div class="event-date"><i class="ti ti-calendar" aria-hidden="true"></i>${date}</div></td>
+        <td data-label="Contact">${wa ? `<a class="wa-btn" href="${waHref}" target="_blank">${waIcon} WhatsApp</a>` : '<span style="color:#aaa;font-size:13px">—</span>'}</td>
       </tr>`;
   }).join('');
 }
